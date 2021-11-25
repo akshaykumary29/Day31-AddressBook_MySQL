@@ -1,0 +1,322 @@
+		Welcome to Address Book Database Maganement 
+--------------------------------------------------------------------------------------------------------------
+
+// UC1:
+  Creating database as AddressBookService
+________________________________________________________________
+
+mysql> create database AddressBookService;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook        |
+| addressbookservice |
+| batch76            |
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| sys                |
+| users              |
++--------------------+
+9 rows in set (0.00 sec)
+
+
+// UC2:  
+  Creating table as AddressBook with attributes
+________________________________________________________________
+
+mysql> use addressbook;
+Database changed
+mysql> create table addressbook(
+    -> firstname varchar(50) not null,
+    -> lastname varchar(50) not null,
+    -> address varchar(50) not null,    
+    -> city varchar(100) not null,	
+    -> state varchar(50) not null,
+    -> zip int not null,
+    -> phonenumber double not null,
+    -> email varchar(100) not null );
+Query OK, 0 rows affected (1.21 sec)
+
+mysql> desc AddressBook;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| firstname   | varchar(50)  | NO   |     | NULL    |       |
+| lastname    | varchar(50)  | NO   |     | NULL    |       |
+| address     | varchar(100) | NO   |     | NULL    |       |
+| city        | varchar(50)  | NO   |     | NULL    |       |
+| state       | varchar(50)  | NO   |     | NULL    |       |
+| zip         | int(11)      | NO   |     | NULL    |       |
+| phonenumber | double       | NO   |     | NULL    |       |
+| email       | varchar(100) | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.23 sec)
+
+
+// UC3: 
+   Inserting new Contacts to AddressBook table
+________________________________________________________________
+
+mysql> insert into AddressBook (firstname, lastname, address, city,state,zip,phonenumber,email) values
+    -> ('Akshay','Yam','Andheri','Mumbai','Maharashtra',400047,123456789,'akshay@gmail.com'),
+    -> ('Suraj','Yam','Vashi','Navi_Mumbai','Maharastra',402107,987654321,'suraj@gmail.com'),
+    -> ('Ganesh','Patil','Khadki','Pune','Maharastra',411003,987456321,'ganesh@gmail.com'),
+    -> ('Nitin','Desh','Ramapura','Bengaluru','Karnataka',561210,123654789,'nitin@gmail.com');
+Query OK, 4 rows affected (1.08 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email            |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com |
+| Suraj     | Yam      | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com  |
+| Ganesh    | Patil    | Khadki   | Pune        | Maharastra  | 411003 |   987456321 | ganesh@gmail.com |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   123654789 | nitin@gmail.com  |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+4 rows in set (0.03 sec)
+
+
+// UC4: 
+  Editing the existing contact by their firstname
+_______________________________________________________________
+
+mysql> update AddressBook set lastname = 'Yamgar' where firstname = 'Suraj';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update AddressBook set phonenumber = 987321456 where firstname = 'Nitin';
+
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email            |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com |
+| Suraj     | Yamgar   | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com  |
+| Ganesh    | Patil    | Khadki   | Pune        | Maharastra  | 411003 |   987456321 | ganesh@gmail.com |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   987321456 | nitin@gmail.com  |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc AddressBook;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| firstname   | varchar(50)  | NO   |     | NULL    |       |
+| lastname    | varchar(50)  | NO   |     | NULL    |       |
+| address     | varchar(100) | NO   |     | NULL    |       |
+| city        | varchar(50)  | NO   |     | NULL    |       |
+| state       | varchar(50)  | NO   |     | NULL    |       |
+| zip         | int(11)      | NO   |     | NULL    |       |
+| phonenumber | double       | NO   |     | NULL    |       |
+| email       | varchar(100) | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.25 sec)
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email            |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com |
+| Suraj     | Yamgar   | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com  |
+| Ganesh    | Patil    | Khadki   | Pune        | Maharastra  | 411003 |   987456321 | ganesh@gmail.com |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   987321456 | nitin@gmail.com  |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+4 rows in set (0.00 sec)
+
+
+// UC5: 
+  Deleting the contact by their lastname
+_____________________________________________________________________
+
+mysql> delete from AddressBook where lastname = 'Patil';
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email            |
++-----------+----------+----------+-------------+-------------+--------+------------+------------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com |
+| Suraj     | Yamgar   | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com  |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   987321456 | nitin@gmail.com  |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+
+3 rows in set (0.00 sec)
+
+
+// UC6: 
+  Retrieving the contact by city or state
+_____________________________________________________________________
+
+mysql> select * from AddressBook where city = 'Mumbai' or State = 'Maharashtra';
+;
++-----------+----------+---------+--------+-------------+--------+-------------+------------------+
+| firstname | lastname | address | city   | state       | zip    | phonenumber | email            |
++-----------+----------+---------+--------+-------------+--------+-------------+------------------+
+| Akshay    | Yam      | Andheri | Mumbai | Maharashtra | 400047 |   123456789 | akshay@gmail.com |
++-----------+----------+---------+--------+-------------+--------+-------------+------------------+
+1 row in set (0.00 sec)
+
+ERROR:
+No query specified
+
+
+// UC7: 
+  Size of addressbook by city and state
+____________________________________________________________________
+
+mysql> select State,count(firstname) from AddressBook where State = 'Maharashtra
+';
++-------------+------------------+
+| State       | count(firstname) |
++-------------+------------------+
+| Maharashtra |                1 |
++-------------+------------------+
+1 row in set (0.06 sec)
+
+mysql> select State,count(firstname) from AddressBook where State = 'Maharastra'
+;
++------------+------------------+
+| State      | count(firstname) |
++------------+------------------+
+| Maharastra |                1 |
++------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select State,count(firstname) from AddressBook where State = 'Karnataka';
+
++-----------+------------------+
+| State     | count(firstname) |
++-----------+------------------+
+| Karnataka |                1 |
++-----------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select State,count(firstname) from AddressBook where City = 'Navi_Mumbai'
+;
++------------+------------------+
+| State      | count(firstname) |
++------------+------------------+
+| Maharastra |                1 |
++------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select City,count(firstname) from AddressBook where City = 'Navi_Mumbai';
+
++-------------+------------------+
+| City        | count(firstname) |
++-------------+------------------+
+| Navi_Mumbai |                1 |
++-------------+------------------+
+1 row in set (0.00 sec)
+
+
+// UC8: 
+  Soriting the name alphbetically for given city
+_____________________________________________________________
+
+mysql> select firstname,City from AddressBook order by City;
++-----------+-------------+
+| firstname | City        |
++-----------+-------------+
+| Nitin     | Bengaluru   |
+| Akshay    | Mumbai      |
+| Suraj     | Navi_Mumbai |
++-----------+-------------+
+3 rows in set (0.06 sec)
+
+
+// UC9: 
+  Altering the table with addressbook name and contact type
+_______________________________________________________________
+
+mysql> alter table addressbook add type varchar(50) after email;
+Query OK, 0 rows affected (1.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc addressbook;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| firstname   | varchar(50)  | NO   |     | NULL    |       |
+| lastname    | varchar(50)  | NO   |     | NULL    |       |
+| address     | varchar(100) | NO   |     | NULL    |       |
+| city        | varchar(50)  | NO   |     | NULL    |       |
+| state       | varchar(50)  | NO   |     | NULL    |       |
+| zip         | int(11)      | NO   |     | NULL    |       |
+| phonenumber | double       | NO   |     | NULL    |       |
+| email       | varchar(100) | NO   |     | NULL    |       |
+| type        | varchar(50)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> update addressbook set type = 'family' where firstname = 'Akshay';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'friend' where firstname = 'Suraj';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'Profession' where firstname = 'Nitin';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email            | type       |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com | family     |
+| Suraj     | Yamgar   | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com  | friend     |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   987321456 | nitin@gmail.com  | Profession |
++-----------+----------+----------+-------------+-------------+--------+-------------+------------------+------------+
+3 rows in set (0.00 sec)
+
+
+// UC10: 
+  Ability to get count of contacts by type
+_______________________________________________________________
+
+mysql> select type,count(phonenumber) from addressbook where type = 'friend'
+    -> select type,count(phonenumber) from addressbook where type = 'friend';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual thatcorresponds to your MySQL server version for the right syntax to use near 'select type,count(phonenumber) from addressbook where type = 'friend'' at line 2
+
+mysql> select type,count(phonenumber) from addressbook where type = 'friend';
++--------+--------------------+
+| type   | count(phonenumber) |
++--------+--------------------+
+| friend |                  1 |
++--------+--------------------+
+1 row in set (0.00 sec)
+
+
+// UC11:
+ Ability to add person to both Friend and Family
+________________________________________________________________
+
+mysql> insert into addressbook (firstname,lastname,address,city,state,zip,phonenumber,email,type) values
+    -> ('Ganesh','Gaw','Panvel','Navi_Mumbai','Maharashtra',410106,897456321,'ganesh1@gmail.com','family'),
+    -> ('Vaibhav','More','CST','Mumbai','Maharashtra',400703,963258741,'vai@gmail.com','friend');
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from AddressBook;
++-----------+----------+----------+-------------+-------------+--------+-------------+-------------------+------------+
+| firstname | lastname | address  | city        | state       | zip    | phonenumber | email             | type       |
++-----------+----------+----------+-------------+-------------+--------+-------------+-------------------+------------+
+| Akshay    | Yam      | Andheri  | Mumbai      | Maharashtra | 400047 |   123456789 | akshay@gmail.com  | family     |
+| Suraj     | Yamgar   | Vashi    | Navi_Mumbai | Maharastra  | 402107 |   987654321 | suraj@gmail.com   | friend     |
+| Nitin     | Desh     | Ramapura | Bengaluru   | Karnataka   | 561210 |   987321456 | nitin@gmail.com   | Profession |
+| Ganesh    | Gaw      | Panvel   | Navi_Mumbai | Maharashtra | 410106 |   897456321 | ganesh1@gmail.com | family     |
+| Vaibhav   | More     | CST      | Mumbai      | Maharashtra | 400703 |   963258741 | vai@gmail.com     | friend     |
++-----------+----------+----------+-------------+-------------+--------+-------------+-------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
